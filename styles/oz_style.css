@@ -150,7 +150,9 @@ ul.navi.account li a.active {
   font-size: 1.1em;
   color: #959599;
 }
-
+#gallery {
+  cursor: pointer;
+}
 .gallery {
   width: 100%;
   border: 0 solid #005826;
@@ -158,9 +160,6 @@ ul.navi.account li a.active {
   overflow: hidden;
   margin-bottom: 20px;
   height: 270px;
-}
-#gallery {
-  cursor: pointer;
 }
 .gallery h6.subtitle {
   background-color: #005826;
@@ -370,6 +369,7 @@ div.link_grid {
 #content.news .article_viewer .window img.large_article {
   float: left;
   position: relative;
+  cursor: move;
 }
 #content.news .article_viewer .actions {
   width: 100%;
@@ -417,6 +417,9 @@ div.link_grid {
 }
 #content.partners div.link_grid {
   margin: 6px -30px 0 0;
+}
+#content.portfolio div.column {
+  cursor: pointer;
 }
 body.loading {
   background: transparent url(../images/icons/preloader_lue-wht_large.gif) no-repeat scroll 50% 150px;
