@@ -94,6 +94,7 @@ function Gallery_tour(images_path, gallery_path) {
     self.gallery_json = data;
     var temp_gallery = '<div class="popin_gallery" ><img class="close" src="/images/icons/gallery/close_box.png" alt="close" /><div class="wrapper"><div class="holder">'
     for (var i = 0; i < self.preload_iter + self.starting_point; i++) {
+      if (i >= self.gallery_json.length) {continue;}
       temp_gallery += '<img src="' + self.images_path + self.gallery_json[i].file_name + '" alt="' + self.gallery_json[i].title + '" />';
     }
     temp_gallery += '</div>';
