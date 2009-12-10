@@ -1,0 +1,11 @@
+[14-Nov-2009 21:20:01] PHP Parse error:  syntax error, unexpected $end in /home3/sapienst/public_html/oz_site/blog/wp-content/themes/default/sidebar.php on line 66
+[14-Nov-2009 21:20:02] PHP Parse error:  syntax error, unexpected $end in /home3/sapienst/public_html/oz_site/blog/wp-content/themes/default/sidebar.php on line 66
+[14-Nov-2009 21:20:03] PHP Parse error:  syntax error, unexpected $end in /home3/sapienst/public_html/oz_site/blog/wp-content/themes/default/sidebar.php on line 66
+[14-Nov-2009 23:22:18] PHP Parse error:  syntax error, unexpected $end in /home3/sapienst/public_html/oz_site/blog/wp-content/themes/default/sidebar.php on line 66
+[14-Nov-2009 23:23:01] PHP Parse error:  syntax error, unexpected T_ENDIF in /home3/sapienst/public_html/oz_site/blog/wp-content/themes/default/sidebar.php on line 67
+[14-Nov-2009 23:23:03] PHP Parse error:  syntax error, unexpected T_ENDIF in /home3/sapienst/public_html/oz_site/blog/wp-content/themes/default/sidebar.php on line 67
+[14-Nov-2009 23:23:03] PHP Parse error:  syntax error, unexpected T_ENDIF in /home3/sapienst/public_html/oz_site/blog/wp-content/themes/default/sidebar.php on line 67
+[14-Nov-2009 23:23:03] PHP Parse error:  syntax error, unexpected T_ENDIF in /home3/sapienst/public_html/oz_site/blog/wp-content/themes/default/sidebar.php on line 67
+[19-Nov-2009 03:32:03] PHP Warning:  printf() [<a href='function.printf'>function.printf</a>]: Too few arguments in /home3/sapienst/public_html/oz_site/blog/wp-includes/comment-template.php on line 1263
+[19-Nov-2009 03:32:03] PHP Warning:  printf() [<a href='function.printf'>function.printf</a>]: Too few arguments in /home3/sapienst/public_html/oz_site/blog/wp-includes/comment-template.php on line 1263
+[19-Nov-2009 03:32:03] PHP Warning:  printf() [<a href='function.printf'>function.printf</a>]: Too few arguments in /home3/sapienst/public_html/oz_site/blog/wp-includes/comment-template.php on line 1263
