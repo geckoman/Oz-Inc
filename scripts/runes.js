@@ -404,13 +404,19 @@ function Basins(basin_object) {
   }
   this.slide_goto = function(index) {
     self.set_active(index); // -- setting active
-    self.current_slide = -self.active.position().left;
+    self.current_slide = self.active.position().left;
     self.basin_wrapper.css({left: -self.current_slide});
     if (self.change_wrapper_height) {
       self.basin_wrapper.css({height: self.active.outerHeight(true)});
     }
     if (self.change_wrapper_width) {
-      self.basin_wrapper.parent().parent().css({width: self.active.outerWidth(true)});
+      var temp_width = self.active.outerWidth(true)
+      if (temp_width != self.basin_wrapper.parent().parent().width()) {
+        self.basin_wrapper.parent().parent().css({
+          width: temp_width,
+          marginLeft : -temp_width / 2
+        });
+      }
     }
   }
   /** 
@@ -454,6 +460,7 @@ function Basins(basin_object) {
   this.all_slide_switch =  function(index, direction) {
     if (index == self.active_index) return false;
     self.set_active(index); // -- setting active
+    var temp_width = self.active.outerWidth();
     if (self.center_basin) {
       self.current_slide = -self.active.position().left + ((self.basin_wrapper.parent().outerWidth() - self.active.outerWidth(true)) / 2);
     } else {
@@ -462,11 +469,11 @@ function Basins(basin_object) {
     self.sketcher.draw(self.basin_wrapper, {
       left: self.current_slide + (self.shiftable && self.shiftable(direction) && self.shift_distance ? -self.shift_distance : 0)
     }, null, 1.2);
-    if (self.change_wrapper_width && self.active.outerWidth() > 200) {
-      if (self.active.outerWidth() != self.basin_wrapper.parent().parent().width()) {
+    if (self.change_wrapper_width && temp_width > 200) {
+      if (temp_width != self.basin_wrapper.parent().parent().width()) {
         self.sketcher.draw(self.basin_wrapper.parent().parent(), {
-          width: self.active.outerWidth(),
-          marginLeft : -self.active.outerWidth() / 2
+          width: temp_width,
+          marginLeft : -temp_width / 2
         }, null, 1.2);
       }
     }

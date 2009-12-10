@@ -42,13 +42,13 @@ function Oz_gallery() {
 function Gallery_tour(images_path, gallery_path) {
   var self = this;
   this.container = $('div#container');
-  console.log(this.root);
   this.gallery_json = null;
   this.gallery = null;
   this.gallery_interface = null;
   this.images_path = images_path;
   this.preload_iter = 3;
   this.gallery_url = gallery_path;
+  this.starting_point = 0;
   
   this.start_up = function() {
     self.root.bind('click', self.handle_click);
@@ -62,7 +62,6 @@ function Gallery_tour(images_path, gallery_path) {
   }
   
   this.handle_click = function(e) {
-  console.log(e);
     if (e) {
       var me = $(e.target);
       if (me.hasClass('slider')) {
@@ -71,9 +70,10 @@ function Gallery_tour(images_path, gallery_path) {
         if (me.attr('src').match(/portfolio/) || me.is('h4')) {
           me = me.parent();
         }
-        console.log(me.prevAll().length);
+        self.starting_point = me.prevAll().length - 1;
+      } else {
+        self.starting_point = 0;
       }
-      
       e.preventDefault();
     }
     self.bring_gallery_in()
@@ -93,7 +93,7 @@ function Gallery_tour(images_path, gallery_path) {
     self.sketcher.draw(self.container, {opacity : 0}, null, 1);
     self.gallery_json = data;
     var temp_gallery = '<div class="popin_gallery" ><img class="close" src="/images/icons/gallery/close_box.png" alt="close" /><div class="wrapper"><div class="holder">'
-    for (var i = 0; i < self.preload_iter; i++) {
+    for (var i = 0; i < self.preload_iter + self.starting_point; i++) {
       temp_gallery += '<img src="' + self.images_path + self.gallery_json[i].file_name + '" alt="' + self.gallery_json[i].title + '" />';
     }
     temp_gallery += '</div>';
@@ -102,23 +102,21 @@ function Gallery_tour(images_path, gallery_path) {
     temp_gallery += '</div></div>';
     self.container.siblings('div#full_screen').html(temp_gallery);
     self.gallery = self.container.siblings('div#full_screen').children('div.popin_gallery').children('div.wrapper');;
-    self.gallery.children('div.holder').children().eq(0).bind('load', self.make_gallery);
+    self.gallery.children('div.holder').children().eq(self.starting_point).bind('load', self.make_gallery);
   }
   
   this.preload_go = function() {
-  setTimeout(function() {
-    if(self.preload_iter >= self.gallery_json.length) { return false; }
-    self.gallery_interface.basin_wrapper.append('<img src="' + self.images_path + self.gallery_json[self.preload_iter].file_name + '" alt="' + self.gallery_json[self.preload_iter].title + '" />');
-    self.gallery_interface.basins = self.gallery_interface.basin_wrapper.children();
-    self.gallery_interface.slide_bind_up();
-    //self.gallery_interface.basins.trigger('rewidth');
-    self.preload_iter++;
-  }, 900);
+    setTimeout(function() {
+      if(self.preload_iter >= self.gallery_json.length) { return false; }
+      self.gallery_interface.basin_wrapper.append('<img src="' + self.images_path + self.gallery_json[self.preload_iter].file_name + '" alt="' + self.gallery_json[self.preload_iter].title + '" />');
+      self.gallery_interface.basins = self.gallery_interface.basin_wrapper.children();
+      self.gallery_interface.slide_bind_up();
+      //self.gallery_interface.basins.trigger('rewidth');
+      self.preload_iter++;
+    }, 900);
   }
   
   this.make_gallery = function() {
-    self.sketcher.draw(self.gallery.parent(), {opacity : 1}, function() {$(document.body).removeClass('loading');}, 1);
-    self.gallery.siblings('img.close').bind('click', self.close_gallery);
     self.gallery_interface = new Runes({
       basins : self.gallery.children('div.holder').children(),
       change_wrapper_height : true,
@@ -134,7 +132,10 @@ function Gallery_tour(images_path, gallery_path) {
         out : { opacity : .5 }
       }
     }).start_up();
+    self.sketcher.draw(self.gallery.parent(), {opacity : 1}, function() {$(document.body).removeClass('loading');}, 1);
+    self.gallery.siblings('img.close').bind('click', self.close_gallery);
     self.gallery_interface.basin_wrapper.bind('new_active', self.preload_go);
+    self.gallery_interface.slide_goto(self.starting_point);
   }
   
   this.close_gallery = function() {
